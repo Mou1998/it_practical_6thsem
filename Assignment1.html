@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<script>
+			var hr;
+			var min;
+			var sec;
+			var today;
+			var hr_call;
+			var min_call;
+			var sec_call;
+			function show(){
+				today= new Date();
+				document.getElementById("time").innerHTML=today;
+			}
+			var call = setInterval(show, 500);
+			function give_date(){
+				year=today.getFullYear();
+				month=today.getMonth();
+				day=today.getDay();
+				date=today.getDate();
+				hr=document.getElementById("hour").value
+				min=document.getElementById("minute").value
+				sec=document.getElementById("second").value
+				givedate=new Date(year, month, date, hr, min, sec);
+			}
+			function hour(){
+				give_date();
+				if(hr<today.getHours()){
+					clearInterval(call);
+					document.getElementById("time").style.color="red";
+					clearInterval(hr_call);
+				}
+			}
+			function hour_call(){
+				hr_call=setInterval(hour,500);
+			}
+			function minute(){
+				give_date();
+				clearInterval(hr_call);
+				if(hr==today.getHours() && min<today.getMinutes()){
+					clearInterval(call);
+					document.getElementById("time").style.color="red";
+					clearInterval(min_call);
+				}
+				
+			}
+			function minute_call(){
+				min_call=setInterval(minute,500);
+			}
+			function second(){
+				give_date();
+				clearInterval(min_call);
+				if(hr==today.getHours() && min==today.getMinutes() && sec<=today.getSeconds()){
+					clearInterval(call);
+					document.getElementById("time").style.color="red";
+					clearInterval(sec_call);
+				}
+			}
+			function second_call(){
+				sec_call=setInterval(second,500);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="time"></div> <br> <br>
+		<div>
+			<span>Hour:<input onmouseleave ="hour_call()" id="hour" type="text" name="Hour" ></span>
+			<span>Min:<input onmouseleave ="minute_call()" id="minute" type="text" name="Min" ></span>
+			<span>Sec:<input onmouseleave ="second_call()" id="second" type="text" name="Sec" ></span>
+		</div>
+	</body>
+</html>
+
